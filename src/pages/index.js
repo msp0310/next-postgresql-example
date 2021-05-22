@@ -1,8 +1,22 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { monokaiSublime } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+
 
 export default function Home() {
+  const [time, setTime] = useState(null)
+  useEffect(() => {
+    fetch('/api/time')
+      .then(res => res.json())
+      .then(data => {
+        setTime(data.current_timestamp)
+      })
+
+  }, [])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,7 +31,23 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Next.js上でpostgresqlからデータ取得し、表示する例
+          Next.js上でpostgresqlからデータ取得し、表示する例 <br />
+          <SyntaxHighlighter language="typescript" style={{ ...monokaiSublime, fontSize: 12 }} >
+            {`
+const [time, setTime] = useState(null)
+useEffect(() => {
+  fetch('/api/time')
+    .then(res => res.json())
+    .then(data => {
+      setTime(data.current_timestamp)
+    })
+
+}, [])`}
+          </SyntaxHighlighter>
+        </p>
+
+        <p>
+          <strong>現在時間</strong>： {time}
         </p>
 
       </main>
@@ -31,6 +61,6 @@ export default function Home() {
           Copyright 2021 m_sawada
         </a>
       </footer>
-    </div>
+    </div >
   )
 }

@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { Client } from 'pg'
 
 export default async (req, res) => {
@@ -6,7 +5,7 @@ export default async (req, res) => {
     user: 'postgres',
     host: 'localhost',
     database: 'postgres',
-    password: 'xxxxxxx',
+    password: 'mako0310',
     port: 5432
   })
   client.connect()
